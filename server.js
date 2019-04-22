@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 var Message = mongoose.model('Message',{ name : String, message : String});
 
-var dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/test?retryWrites=true';
+var dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
 mongoose.connect(dbUrl, (err) => {
    console.log('mongodb connected', err);
 });
