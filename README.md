@@ -1,3 +1,3 @@
-Chatting app\
-by Hrag and Mike\
-Networking spring 2019
+*Chatting app\
+*by Hrag and Mike\
+*Networking spring 2019
