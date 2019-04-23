@@ -1,10 +1,11 @@
 const express     = require('express'),
-bodyParser = require('body-parser'),
-mongoose    = require('mongoose');
+bodyParser        = require('body-parser'),
+mongoose          = require('mongoose');
 
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const app         = express();
+const http        = require('http');
+const server = http.createServer(app);
+var io          = require('socket.io').listen(server);
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
@@ -46,6 +47,10 @@ mongoose.connect(dbUrl, (err) => {
   console.log('mongodb connected, error:', err);
 });
 
-var server = app.listen(3000, () => {
+server.listen(3000, () => {
   console.log('Server is running on port', server.address().port);
 });
+
+// const server = app.listen(3000, () => {
+//   console.log('Server is running on port', server.address().port);
+// });
