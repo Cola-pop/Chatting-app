@@ -43,7 +43,7 @@ io.on('connection', () => {
 });
 
 mongoose.connect(dbUrl, (err) => {
-  console.log('mongodb connected', err);
+  console.log('mongodb connected, error:', err);
 });
 
 var server = app.listen(3000, () => {
