@@ -41,7 +41,7 @@ app.post('/messages', async (req, res) => {
         io.emit('message', req.body);
       res.sendStatus(200);
   }
-  catch (error){
+  catch(error){
     res.sendStatus(500);
     return console.log('error',error);
   }
