@@ -1,16 +1,17 @@
-var express     = require('express'),
+const express     = require('express'),
 bodyParser = require('body-parser'),
 mongoose    = require('mongoose');
 
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-var Message = mongoose.model('Message',{ name : String, message : String});
+const Message = mongoose.model('Message',{ name : String, message : String});
+const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
@@ -37,13 +38,12 @@ app.post('/messages', (req, res) => {
   });
 });
 
-var dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
-mongoose.connect(dbUrl, (err) => {
-  console.log('mongodb connected', err);
-});
-
 io.on('connection', () => {
   console.log('A user is connected');
+});
+
+mongoose.connect(dbUrl, (err) => {
+  console.log('mongodb connected', err);
 });
 
 var server = app.listen(3000, () => {
