@@ -1,18 +1,89 @@
-const express     = require('express'),
-bodyParser        = require('body-parser'),
-mongoose          = require('mongoose');
+// const express     = require('express'),
+// bodyParser        = require('body-parser'),
+// mongoose          = require('mongoose');
+//
+// const app         = express();
+// const http        = require('http');
+// const server = http.createServer(app);
+// var io          = require('socket.io').listen(server);
+//
+// app.use(express.static(__dirname));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: false}));
+//
+// const Message = mongoose.model('Message',{ name : String, message : String});
+// const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
+//
+// app.get('/messages', (req, res) => {
+//   Message.find({},(err, messages)=> {
+//     res.send(messages);
+//   });
+// });
+//
+// app.get('/messages/:user', (req, res) => {
+//   var user = req.params.user;
+//   Message.find({name: user},(err, messages)=> {
+//     res.send(messages);
+//   });
+// });
+//
+// app.post('/messages', async (req, res) => {
+//   try{
+//     var message = new Message(req.body);
+//
+//     var savedMessage = await message.save();
+//     console.log('saved');
+//
+//     var censored = await Message.findOne({message:'badword'});
+//     if(censored)
+//     await Message.remove({_id: censored.id});
+//     else
+//     io.emit('message', req.body);
+//     res.sendStatus(200);
+//   }
+//   catch(error){
+//     res.sendStatus(500);
+//     return console.log('error',error);
+//   }
+//   finally{
+//     console.log('Message Posted');
+//   }
+//
+// });
+//
+// io.on('connection', () => {
+//   console.log('A user is connected');
+// });
+//
+// mongoose.connect(dbUrl, (err) => {
+//   console.log('mongodb connected, error:', err);
+// });
+//
+// server.listen(3000, () => {
+//   console.log('Server is running on port', server.address().port);
+// });
+//
+// // const server = app.listen(3000, () => {
+// //   console.log('Server is running on port', server.address().port);
+// // });
 
-const app         = express();
-const http        = require('http');
-const server = http.createServer(app);
-var io          = require('socket.io').listen(server);
+var express = require('express');
+var bodyParser = require('body-parser');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var mongoose = require('mongoose');
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-const Message = mongoose.model('Message',{ name : String, message : String});
-const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
+var Message = mongoose.model('Message',{
+  name : String,
+  message : String
+});
+
+var dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
@@ -20,12 +91,14 @@ app.get('/messages', (req, res) => {
   });
 });
 
+
 app.get('/messages/:user', (req, res) => {
   var user = req.params.user;
   Message.find({name: user},(err, messages)=> {
     res.send(messages);
   });
 });
+
 
 app.post('/messages', async (req, res) => {
   try{
@@ -41,7 +114,7 @@ app.post('/messages', async (req, res) => {
         io.emit('message', req.body);
       res.sendStatus(200);
   }
-  catch(error){
+  catch (error){
     res.sendStatus(500);
     return console.log('error',error);
   }
@@ -51,18 +124,16 @@ app.post('/messages', async (req, res) => {
 
 });
 
-io.on('connection', () => {
-  console.log('A user is connected');
+
+
+io.on('connection', () =>{
+  console.log('a user is connected');
 });
 
-mongoose.connect(dbUrl, (err) => {
-  console.log('mongodb connected, error:', err);
+mongoose.connect(dbUrl ,{useMongoClient : true} ,(err) => {
+  console.log('mongodb connected',err);
 });
 
-server.listen(3000, () => {
-  console.log('Server is running on port', server.address().port);
+var server = http.listen(3000, () => {
+  console.log('server is running on port', server.address().port);
 });
-
-// const server = app.listen(3000, () => {
-//   console.log('Server is running on port', server.address().port);
-// });
