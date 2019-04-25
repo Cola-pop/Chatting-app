@@ -14,9 +14,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 const Message = mongoose.model('Message',{ name : String, message : String});
 const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
 
-app.get("/", (req, res) => {
-	res.render("index");
-});
+// app.get("/", (req, res) => {
+// 	res.render("index");
+// });
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
@@ -63,9 +63,11 @@ mongoose.connect(dbUrl, (err) => {
   console.log('mongodb connected, error:', err);
 });
 
-server.listen(3000, () => {
-  console.log('Server is running on port', server.address().port);
-});
+app.listen(process.env.PORT, process.env.IP);
+
+// server.listen(3000, () => {
+//   console.log('Server is running on port', server.address().port);
+// });
 
 // const server = app.listen(3000, () => {
 //   console.log('Server is running on port', server.address().port);
