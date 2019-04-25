@@ -14,6 +14,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 const Message = mongoose.model('Message',{ name : String, message : String});
 const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
 
+app.get("/", (req, res) => {
+	res.render("landing");
+});
+
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
     res.send(messages);
