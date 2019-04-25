@@ -2,8 +2,7 @@
 <html>
 <head>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <script
-  src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="socket.io.js"></script>
   <!-- <script src="/socket.io/socket.io.js"></script> -->
@@ -24,6 +23,30 @@
     </div>
     <div id="messages"></div>
   </div>
-  <script src="clientscript.js"></script>
+  <script>
+  var socket = io();
+
+  $(() => {
+    $("#send").click(()=>{
+      sendMessage({name: $("#name").val(), message: $("#message").val()});
+    });
+    getMessages();
+  });
+
+  socket.on('message', addMessages);
+
+  function addMessages(message){
+    $("#messages").append(`<h4> ${message.name} </h4> <p> ${message.message} </p>`);
+  }
+  function getMessages(){
+    $.get('http://localhost:3000/messages', (data) => {
+      data.forEach(addMessages);
+    });
+  }
+
+  function sendMessage(message){
+    $.post('http://localhost:3000/messages', message);
+  }
+  </script>
 </body>
 </html>
