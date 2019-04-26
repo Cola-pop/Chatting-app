@@ -4,10 +4,13 @@
 
 #messages{
   background-color: #34373a;
+  border-radius: 50px 20px;
 }
 
 #message-box{
-  padding-top: 5px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 25px;
   border-radius: 25px;
   background-color: #4682B4;
   color: white;
