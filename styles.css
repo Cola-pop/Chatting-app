@@ -1,0 +1,12 @@
+.text-content{
+  font-size: 14px;
+}
+
+#messages{
+  background-color: #34373a;
+}
+
+#message-box{
+  border-radius: 3px;
+  background-color: #4682B4;
+}
