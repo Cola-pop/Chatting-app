@@ -38,7 +38,7 @@
   socket.on('message', addMessages);
 
   function addMessages(message){
-    $("#messages").append(`<div id="message-box"><h3> ${message.name} </h4> <p class="text-content"> ${message.message} </p></div>`);
+    $("#messages").append(`<div id="message-box"><h4> ${message.name} </h4> <p class="text-content"> ${message.message} </p></div>`);
   }
   function getMessages(){
     $.get('https://obscure-bayou-50976.herokuapp.com/messages', (data) => {

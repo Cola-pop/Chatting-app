@@ -9,6 +9,7 @@
 #message-box{
   border-radius: 25px;
   background-color: #4682B4;
+  text-align: center;
   color: white;
   width: 25%;
 }
