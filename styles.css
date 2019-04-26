@@ -14,7 +14,7 @@
   padding-top: 15px;
   padding-bottom: 15px;
   width: 80%;
-  height: 50%;
+  max-height: 50%;
   overflow-y: scroll;
   position: relative;
 }
