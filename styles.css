@@ -1,8 +1,5 @@
 .stuck{
   position: fixed;
-  top: 10px;
-  left: 10px;
-  bottom: 10px;
-  width: 180px;
+  width: 80%;
   overflow-y: scroll;
 }
