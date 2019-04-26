@@ -7,6 +7,8 @@
 }
 
 #message-box{
-  border-radius: 3px;
+  border-radius: 25px;
   background-color: #4682B4;
+  color: white;
+  width: 25%;
 }
