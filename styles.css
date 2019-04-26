@@ -2,10 +2,6 @@
   font-size: 14px;
 }
 
-#chat-container{
-  float: left;
-}
-
 #messages{
   background-color: #34373a;
   border-radius: 50px 20px;
