@@ -12,6 +12,7 @@
   width: 80%;
   height: 50%;
   overflow-y: scroll;
+  position: absolute;
 }
 
 #message-box{
