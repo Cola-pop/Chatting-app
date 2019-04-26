@@ -7,9 +7,11 @@
 }
 
 #message-box{
+  padding-top: 5px;
   border-radius: 25px;
   background-color: #4682B4;
-  text-align: center;
   color: white;
+  text-align: center;
   width: 25%;
+  word-wrap: break-word;
 }
