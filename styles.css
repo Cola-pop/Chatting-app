@@ -5,11 +5,11 @@
 #messages{
   background-color: #34373a;
   border-radius: 50px 20px;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 #message-box{
-  margin-top: 5%;
-  margin-bottom: 5%;
   margin-left: 25px;
   border-radius: 25px;
   background-color: #4682B4;
