@@ -44,8 +44,9 @@
 var socket = io();
 
 $(() => {
-  $("#send").click(()=>{
+  $(".submit").click(()=>{
     sendMessage({name: $("#name").val(), message: $("#message").val()});
+    mike();
   });
   getMessages();
 });
@@ -68,16 +69,16 @@ function sendMessage(message){
 
 $(".messages").animate({ scrollTop: $(document).height() }, "fast");
 
-$('.submit').click(function() {
-	mike();
-});
+// $('.submit').click(function() {
+// 	mike();
+// });
 
-$(window).on('keydown', (e) => {
-  if(e.which == 13) {
-    mike();
-    return false;
-  }
-});
+// $(window).on('keydown', (e) => {
+//   if(e.which == 13) {
+//     mike();
+//     return false;
+//   }
+// });
 
 function mike(){
   if($.trim(message) == '') {
