@@ -2,8 +2,11 @@
 <html>
 <head>
   <title>Chatsum</title>
+  <script src="https://use.typekit.net/hoy3lrg.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
   <script src="jquery.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="socket.io.js"></script>
@@ -21,69 +24,54 @@
         <ul></ul>
       </div>
       <br>
-      <!-- <div id="chat-container" class="jumbotron">
-      <h1 class="display-4">Send Message</h1>
-      <br>
-      <input id="name" class="form-control" placeholder="Name">
-      <br>
-      <textarea id="message" class="form-control" placeholder="Your Message Here">
-    </textarea>
-    <br>
-    <button id="send" class="btn btn-success">Send</button>
-  </div> -->
-  <div class="message-input">
-    <div class="wrap">
-      <input type="text" id="name" placeholder="Name">
-      <input type="text" id="message"placeholder="Write your message..." />
-      <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+      <div class="message-input">
+        <div class="wrap">
+          <input type="text" id="name" placeholder="Name">
+          <input type="text" id="message"placeholder="Write your message..." />
+          <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
-<script>
-var socket = io();
+  <script>
+  var socket = io();
 
-$(() => {
-  $(".submit").click(()=>{
-    sendMessage({name: $("#name").val(), message: $("#message").val()});
+  $(() => {
+    $(".submit").click(()=>{
+      sendMessage({name: $("#name").val(), message: $("#message").val()});
+    });
+    getMessages();
   });
-  getMessages();
-});
 
-socket.on('message', addMessages);
-//$(<li class="sent"><p>+${message.name}+:<br>  + ${message.message} + </p></li>).appendTo($('.messages ul'));
+  socket.on('message', addMessages);
 
-function addMessages(message){
-  $(".messages ul").append(`<li class="sent"><p>${message.name}:<br>${message.message}</p></li>`);
-}
-function getMessages(){
-  $.get('https://obscure-bayou-50976.herokuapp.com/messages', (data) => {
-    data.forEach(addMessages);
-  });
-}
-
-function sendMessage(message){
-  $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
-  if($.trim(message) == '') {
-    return false;
+  function addMessages(message){
+    $(".messages ul").append(`<li class="sent"><p>${message.name}:<br>${message.message}</p></li>`);
   }
-  $('.message-input input').val(null);
-  $('.contact.active .preview').html('<span>You: </span>' + message);
+  function getMessages(){
+    $.get('https://obscure-bayou-50976.herokuapp.com/messages', (data) => {
+      data.forEach(addMessages);
+    });
+  }
+
+  function sendMessage(message){
+    $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
+    if($.trim(message) == '') {
+      return false;
+    }
+    $('.message-input input').val(null);
+    $('.contact.active .preview').html('<span>You: </span>' + message);
+    $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+  }
+
   $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-}
 
-$(".messages").animate({ scrollTop: $(document).height() }, "fast");
-
-// $('.submit').click(function() {
-// 	mike();
-// });
-
-$(window).on('keydown', (e) => {
-  if(e.which == 13) {
-    sendMessage({name: $("#name").val(), message: $("#message").val()});
-    return false;
-  }
-});
+  $(window).on('keydown', (e) => {
+    if(e.which == 13) {
+      sendMessage({name: $("#name").val(), message: $("#message").val()});
+      return false;
+    }
+  });
 </script>
 </body>
 </html>
