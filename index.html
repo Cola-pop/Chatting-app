@@ -46,7 +46,6 @@ var socket = io();
 $(() => {
   $(".submit").click(()=>{
     sendMessage({name: $("#name").val(), message: $("#message").val()});
-    mike();
   });
   getMessages();
 });
@@ -65,6 +64,12 @@ function getMessages(){
 
 function sendMessage(message){
   $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
+  if($.trim(message) == '') {
+    return false;
+  }
+  $('.message-input input').val(null);
+  $('.contact.active .preview').html('<span>You: </span>' + message);
+  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
 }
 
 $(".messages").animate({ scrollTop: $(document).height() }, "fast");
@@ -73,21 +78,12 @@ $(".messages").animate({ scrollTop: $(document).height() }, "fast");
 // 	mike();
 // });
 
-// $(window).on('keydown', (e) => {
-//   if(e.which == 13) {
-//     mike();
-//     return false;
-//   }
-// });
-
-function mike(){
-  if($.trim(message) == '') {
+$(window).on('keydown', (e) => {
+  if(e.which == 13) {
+    sendMessage({name: $("#name").val(), message: $("#message").val()});
     return false;
   }
-  $('.message-input input').val(null);
-  $('.contact.active .preview').html('<span>You: </span>' + message);
-  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
-}
+});
 </script>
 </body>
 </html>
