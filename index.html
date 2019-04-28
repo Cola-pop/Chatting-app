@@ -66,12 +66,27 @@ function sendMessage(message){
   $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
 }
 
+$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+$('.submit').click(function() {
+	mike();
+});
+
 $(window).on('keydown', (e) => {
   if(e.which == 13) {
-    newMessage();
+    mike();
     return false;
   }
 });
+
+function mike{
+  if($.trim(message) == '') {
+    return false;
+  }
+  $('.message-input input').val(null);
+  $('.contact.active .preview').html('<span>You: </span>' + message);
+  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+}
 </script>
 </body>
 </html>
