@@ -21,50 +21,57 @@
         <ul></ul>
       </div>
       <br>
-      <div id="chat-container" class="jumbotron">
-        <h1 class="display-4">Send Message</h1>
-        <br>
-        <input id="name" class="form-control" placeholder="Name">
-        <br>
-        <textarea id="message" class="form-control" placeholder="Your Message Here">
-        </textarea>
-        <br>
-        <button id="send" class="btn btn-success">Send</button>
-      </div>
+      <!-- <div id="chat-container" class="jumbotron">
+      <h1 class="display-4">Send Message</h1>
+      <br>
+      <input id="name" class="form-control" placeholder="Name">
+      <br>
+      <textarea id="message" class="form-control" placeholder="Your Message Here">
+    </textarea>
+    <br>
+    <button id="send" class="btn btn-success">Send</button>
+  </div> -->
+  <div class="message-input">
+    <div class="wrap">
+      <input type="text" id="name" placeholder="Name">
+      <input type="text" id="message"placeholder="Write your message..." />
+      <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
     </div>
   </div>
-  <script>
-  var socket = io();
+</div>
+</div>
+<script>
+var socket = io();
 
-  $(() => {
-    $("#send").click(()=>{
-      sendMessage({name: $("#name").val(), message: $("#message").val()});
-    });
-    getMessages();
+$(() => {
+  $("#send").click(()=>{
+    sendMessage({name: $("#name").val(), message: $("#message").val()});
   });
+  getMessages();
+});
 
-  socket.on('message', addMessages);
+socket.on('message', addMessages);
 //$(<li class="sent"><p>+${message.name}+:<br>  + ${message.message} + </p></li>).appendTo($('.messages ul'));
 
-  function addMessages(message){
-    $(".messages ul").append(`<li class="sent"><p>+${message.name}+:<br>  + ${message.message} + </p></li>`);
-  }
-  function getMessages(){
-    $.get('https://obscure-bayou-50976.herokuapp.com/messages', (data) => {
-      data.forEach(addMessages);
-    });
-  }
-
-  function sendMessage(message){
-    $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
-  }
-
-  $(window).on('keydown', (e) => {
-    if(e.which == 13) {
-      newMessage();
-      return false;
-    }
+function addMessages(message){
+  $(".messages ul").append(`<li class="sent"><p>${message.name}:<br>${message.message}</p></li>`);
+}
+function getMessages(){
+  $.get('https://obscure-bayou-50976.herokuapp.com/messages', (data) => {
+    data.forEach(addMessages);
   });
-  </script>
+}
+
+function sendMessage(message){
+  $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
+}
+
+$(window).on('keydown', (e) => {
+  if(e.which == 13) {
+    newMessage();
+    return false;
+  }
+});
+</script>
 </body>
 </html>
