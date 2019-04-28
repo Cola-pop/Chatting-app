@@ -27,9 +27,6 @@
       </textarea>
       <br>
       <button id="send" class="btn btn-success">Send</button>
-      <br>
-      <br>
-      <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Credits" data-content="Hrag Hayrabedian and Mike Kouyoumdjian">Click me!</button>
     </div>
   </div>
   <script>
@@ -56,11 +53,12 @@
   function sendMessage(message){
     $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
   }
-  </script>
-  <script>
-  $(() => {
-    $('[data-toggle="popover"]').popover()
-  })
+
+  $(window).on('keydown', (e) => {
+  	if(e.which == 13) {
+  		newMessage();
+  		return false;
+  	}
   </script>
 </body>
 </html>
