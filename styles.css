@@ -92,7 +92,7 @@ body {
   bottom: 0;
   width: 100%;
   z-index: 99;
-  height: 74px;
+  height: 54px;
 
 }
 #frame .content .message-input .wrap {
@@ -103,7 +103,7 @@ body {
   float: left;
   border: none;
   width: calc(100% - 90px);
-  padding: 6px 32px 5px 8px;
+  padding: 10px 32px 10px 8px;
   font-size: 0.8em;
   color: #32465a;
 
