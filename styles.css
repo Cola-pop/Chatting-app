@@ -102,7 +102,7 @@ body {
   font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
   float: left;
   border: none;
-  width: calc(100% - 78px);
+  width: calc(100% - 65px);
   padding: 5px 32px 5px 8px;
   font-size: 0.8em;
   color: #32465a;
