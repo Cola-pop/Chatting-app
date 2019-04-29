@@ -39,6 +39,7 @@ body {
   max-height: calc(100% - 74px);
   overflow-y: scroll;
   overflow-x: hidden;
+  padding-bottom: 70px;
 }
 @media screen and (max-width: 735px) {
   #frame .content .messages {
