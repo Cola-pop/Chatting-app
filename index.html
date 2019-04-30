@@ -37,8 +37,10 @@
   const message_input = document.getElementById('message');
 
   $(() => {
-    $(".submit").click(()=>{
-      sendMessage({name: $("#name").val(), message: $("#message").val()});
+    $(".submit").click(() => {
+      if(name_input.value !== '' && message_input.value !== ''){
+        sendMessage({name: $("#name").val(), message: $("#message").val()});
+      }
     });
     getMessages();
   });
@@ -63,7 +65,6 @@
     $('.contact.active .preview').html('<span>You: </span>' + message);
     // $(".messages").animate({ scrollTop: $(document).height() }, "fast");
   }
-
 
   $(window).on('keydown', (e) => {
     if(e.which == 13 && name_input.value !== '' && message_input.value !== '') {
