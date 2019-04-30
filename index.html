@@ -47,16 +47,17 @@
 
   socket.on('message', addMessages);
 
-  function addMessages(message){
+  var addMessages = (message) => {
     $(".messages ul").append(`<li class="sent"><p>${message.name}:<br>${message.message}</p></li>`);
   }
-  function getMessages(){
+
+  var getMessages = () => {
     $.get('https://obscure-bayou-50976.herokuapp.com/messages', (data) => {
       data.forEach(addMessages);
     });
   }
 
-  function sendMessage(message){
+  var sendMessage = (message) => {
     $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
     if($.trim(message) == '') {
       return false;
