@@ -11,9 +11,9 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+// initialize message mongoose JSON and the mongodb database URL
 const Message = mongoose.model('Message',{ name : String, message : String});
 const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
-
 
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
