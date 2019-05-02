@@ -1,3 +1,4 @@
+// initialize our libraries
 const express     = require('express'),
 bodyParser        = require('body-parser'),
 mongoose          = require('mongoose'),
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 const Message = mongoose.model('Message',{ name : String, message : String});
 const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
 
+// our get route that sends messages from the client side to the server
 app.get('/messages', (req, res) => {
   Message.find({},(err, messages)=> {
     res.send(messages);
@@ -28,6 +30,7 @@ app.get('/messages/:user', (req, res) => {
   });
 });
 
+// our post route that uses the sockets to post the messages
 app.post('/messages', async (req, res) => {
   try{
     var message = new Message(req.body);
@@ -52,12 +55,15 @@ app.post('/messages', async (req, res) => {
 
 });
 
+// our socket connection that also shows when a new session has been created
 io.on('connection', () => {
   console.log('A user is connected');
 });
 
+// the connection to our database
 mongoose.connect(dbUrl, (err) => {
   console.log('mongodb connected, error:', err);
 });
 
+// the server listener
 server.listen(process.env.PORT, process.env.IP);

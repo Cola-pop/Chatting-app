@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Chatsum</title>
+  <!-- bootstrap, socket.io and jquery CDNs and links -->
   <script src="https://use.typekit.net/hoy3lrg.js"></script>
   <script>try{Typekit.load({ async: true });}catch(e){}</script>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
@@ -18,6 +19,7 @@
       <span class="navbar-brand mb-0 h1">Chatsum</span>
     </nav>
     <div class="content">
+      <!-- the following div is where the messages are displayed from the database -->
       <div class="messages">
         <ul></ul>
       </div>
@@ -48,18 +50,24 @@
     getMessages();
   });
 
+// turn on the socket from the client side
   socket.on('message', addMessages);
 
+// append message to display using the HTML and CSS designs that we designed
   function addMessages(message){
     $(".messages ul").append(`<li class="sent"><p>${message.name}:<br>${message.message}</p></li>`);
   }
 
+// retrieve the names and messages form our mongodb database and loop all of them
+// to be displayed in front of you in the browser
+// uses a get request
   function getMessages(){
     $.get('https://obscure-bayou-50976.herokuapp.com/messages', (data) => {
       data.forEach(addMessages);
     });
   }
 
+// sends a post request to the /messages route using our socket
   function sendMessage(message){
     $.post('https://obscure-bayou-50976.herokuapp.com/messages', message);
     if($.trim(message) == '') {
@@ -67,9 +75,11 @@
     }
     $('.message-input input').val(null);
     $('.contact.active .preview').html('<span>You: </span>' + message);
-    // $(".messages").animate({ scrollTop: $(document).height() }, "fast");
   }
 
+// function that sends a message using the enter key
+// 13 represents the enter key in javascript
+// if the fields are empty, it does not send anything
   $(window).on('keydown', (e) => {
     if(e.which == 13 && name_input.value !== '' && message_input.value !== '') {
       sendMessage({name: $("#name").val(), message: $("#message").val()});
