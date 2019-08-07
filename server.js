@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // initialize message mongoose JSON and the mongodb database URL
 const Message = mongoose.model('Message',{ name : String, message : String});
-const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/checksum?retryWrites=true';
+const dbUrl = 'mongodb+srv://dbUser:mikehrag@chatsum-a6e6q.azure.mongodb.net/test?retryWrites=true&w=majority';
 
 // our get route that sends messages from the client side to the server
 app.get('/messages', (req, res) => {
